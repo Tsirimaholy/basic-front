@@ -2,7 +2,7 @@
   "name": "tp-1-react",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://basic-front.github.io",
+  "homepage": "https://tsirimaholy.github.io",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
