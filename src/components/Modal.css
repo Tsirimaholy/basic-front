@@ -1,0 +1,10 @@
+.modal{
+    position:absolute;
+    background-color: rgba(0, 0, 0, 0.589);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.modal-content {
+    width:50%;
+}

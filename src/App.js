@@ -7,16 +7,30 @@ import { Footer } from "./components/Footer";
 import { Card } from "./components/Card";
 import { faker } from "@faker-js/faker";
 import { useState } from "react";
+import Modal from "./components/Modal";
 
-function App() {
-  const employees = new Array(15).fill(null).map((_) => ({
-    name: faker.name.findName(),
-    position: faker.company.bsNoun(),
-    office: faker.address.cityName(),
-    age: faker.random.numeric(2),
-    startDate: new Date().toISOString().split("T")[0],
-    salary: faker.random.numeric(6),
-  }));
+const axios = require("axios").default;
+const baseUrl = "https://jsonplaceholder.typicode.com";
+
+function App() {    
+  let [result, setResult] = useState([]);
+  const users = axios
+    .get(`${baseUrl}/users/`)
+    .then(function (response) {
+      setResult(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+  // const employees = new Array(15).fill(null).map((_) => ({
+  //     name: faker.name.findName(),
+  //     position: faker.company.bsNoun(),
+  //     office: faker.address.cityName(),
+  //     age: faker.random.numeric(2),
+  //     startDate: new Date().toISOString().split("T")[0],
+  //     salary: faker.random.numeric(6),
+  // }));
 
   const [sidebarClass, setSidebarClass] = useState("sb-nav-fixed");
 
@@ -27,6 +41,9 @@ function App() {
         : "sb-nav-fixed sb-sidenav-toggled"
     );
   }
+
+  //todo set it to false
+  const [show, setShow] = useState(true);
 
   return (
     <div className={sidebarClass}>
@@ -49,8 +66,18 @@ function App() {
                 </a>
                 .
               </Card>
+              <button
+                className="btn btn-secondary m-2"
+                onClick={() => setShow(true)}
+              >
+                Add new user
+              </button>
+              <Modal title="userinfo"
+              show={show} 
+              onClose={()=>setShow(false)}/>
               <Card title="DataTable Example">
-                <EmployeeList items={employees} />
+                {/*<EmployeeList items={employees}/>*/}
+                <EmployeeList items={result} />
               </Card>
             </div>
           </main>
